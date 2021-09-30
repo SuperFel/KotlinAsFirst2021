@@ -18,7 +18,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Четырехзначное число назовем счастливым, если сумма первых двух ее цифр равна сумме двух последних.
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
-fun isNumberHappy(number: Int): Boolean = TODO()
+fun isNumberHappy(number: Int): Boolean = number % 10 + number % 100 / 10 == number % 1000 / 100 + number / 1000
 
 /**
  * Простая (2 балла)
@@ -27,7 +27,7 @@ fun isNumberHappy(number: Int): Boolean = TODO()
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = x1 == x2 || y1 == y2 || Math.abs(x1 - x2) == Math.abs(y1 - y2)
 
 
 /**
@@ -36,7 +36,49 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int = TODO()
+fun daysInMonth(month: Int, year: Int): Int
+{
+    fun yearType(year: Int): Int
+    {
+        if (year % 4 == 0 && year % 4000 != 0 && year % 100 != 0 || year % 400 == 0)
+            return 1
+        else
+            return 0
+    }
+
+    if (yearType(year) == 1) // год високосный
+        return when (month)
+        {
+            1 -> 31
+            2 -> 29
+            3 -> 31
+            4 -> 30
+            5 -> 31
+            6 -> 30
+            7 -> 31
+            8 -> 31
+            9 -> 30
+            10 -> 31
+            11 -> 30
+            else -> 31
+        }
+    else
+        return when (month)
+        {
+            1 -> 31
+            2 -> 28
+            3 -> 31
+            4 -> 30
+            5 -> 31
+            6 -> 30
+            7 -> 31
+            8 -> 31
+            9 -> 30
+            10 -> 31
+            11 -> 30
+            else -> 31
+        }
+}
 
 /**
  * Простая (2 балла)
@@ -48,7 +90,13 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = TODO()
+): Boolean
+{
+    var dl1: Double = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
+    var dl2: Double = r2 - r1
+
+    return dl1 <= dl2
+}
 
 /**
  * Средняя (3 балла)
@@ -59,4 +107,18 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean
+{
+    var flag: Boolean
+
+    if ((a <= r && b <= s) || (a <= s && b <= r))
+        flag = true
+    else if ((a <= r && c <= s) || (a <= s && c <= r))
+        flag = true
+    else if ((b <= r && c <= s) || (b <= s && c <= r))
+        flag = true
+    else
+        flag = false
+
+    return flag
+}
