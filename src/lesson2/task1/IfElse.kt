@@ -185,16 +185,19 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
 {
     return when
     {
-        b < c -> -1
-        b == c -> 0
+        a < b && b < c && c < d -> -1
+        a < b && b == c && d >= c -> 0
         a < c && c < b && b < d -> b - c
         a == c && b == d -> b - a
         c < a && a < d && d < b -> d - a
-        d == a -> 0
-        d < a -> -1
-        a < c && d < b -> d - c
-        c < a && b < d -> b - a
-        a == c && d > b -> d - a
+        c < a && a == d && b >= a -> 0
+        c < d && d < a && a < b -> -1
+        a < c && c < d && d < b -> d - c
+        c < a && a < b && b < d -> b - a
+        a == c && b < d -> b - a
+        a == c && d < b -> d - c
+        a < c && c < d && b == d -> d - c
+        c < a && a < b && b == d -> b - a
         else -> -1
     }
 }
