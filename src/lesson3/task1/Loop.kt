@@ -80,6 +80,9 @@ fun digitNumber(n: Int): Int
     var cnt: Int = 0
     var x: Int = n
 
+    if (x < 0)
+        x *= -1
+
     while (x > 0)
     {
         cnt += 1
