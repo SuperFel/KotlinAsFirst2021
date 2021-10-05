@@ -2,7 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.sqrt
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -311,20 +311,7 @@ fun hasDifferentDigits(n: Int): Boolean
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double
-{
-    var p: Double = x
-    var s: Double = x
-    var n: Int = 2
-    while (Math.abs(p) >= eps)
-    {
-        p = -p * x * x / (n * (n + 1))
-        s = s + p
-        n = n + 2
-    }
-
-    return s
-}
+fun sin(x: Double, eps: Double): Double = TODO()
 
 /**
  * Средняя (4 балла)
@@ -346,30 +333,46 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int
+
+fun col(n: Int): Int
 {
-    var cnt: Int = 0
-    var x: Int = 0
-    var k: Int = 1
-    var result: Int = 1
-    // 1491625
-    while (cnt != n)  // 5
+    if (n / 10 == 0) return 1
+    var s: Int = n
+    var k: Int = 0
+    while (s > 0)
     {
-        x += 1  // 5
-        k = x * x  // 25
-        while (k > 0)  // 25
-        {
-            cnt += 1  // 6
-            if (cnt == n)  // 6
-            {
-                result = k % 10
-                break
-            }
-            k /= 10  // 2
-        }
+        k += 1
+        s /= 10
     }
 
-    return result
+    return k
+}
+
+fun squareSequenceDigit(n: Int): Int
+{
+    var s: Int = 0
+    var i: Double = 1.0
+    var box: Int = 0
+    var ch: Double = 0.0
+    while (s < n)
+    {
+        s += col(i.pow(2.0).toInt())
+        box = col(i.pow(2.0).toInt())
+        ch = i.pow(2.0)
+        i += 1
+    }
+    s -= box
+    
+    var gl: Int = ch.toInt()
+    var mas: Array<Int> = emptyArray<Int>()
+    while (gl > 0)
+    {
+        mas += gl % 10
+        gl /= 10
+    }
+    mas.reverse()
+
+    return (mas[n - s - 1])
 }
 
 /**
@@ -381,4 +384,32 @@ fun squareSequenceDigit(n: Int): Int
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int
+{
+    var s: Int = 0
+    var pr: Int = 0
+    var box: Int
+    var sled: Int = 1
+    var dbl: Int = 0
+    var cont: Int = 0
+    while (s < n)
+    {
+        s += col(sled)
+        dbl = col(sled)
+        cont = sled
+        box = sled
+        sled += pr
+        pr = box
+    }
+    s -= dbl
+
+    var mas: Array<Int> = emptyArray<Int>()
+    while (cont > 0)
+    {
+        mas += cont % 10
+        cont /= 10
+    }
+    mas.reverse()
+
+    return mas[n - s - 1]
+}
