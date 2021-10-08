@@ -72,8 +72,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int
-{
+fun digitNumber(n: Int): Int {
     if (n == 0)
         return 1
 
@@ -83,8 +82,7 @@ fun digitNumber(n: Int): Int
     if (x < 0)
         x *= -1
 
-    while (x > 0)
-    {
+    while (x > 0) {
         cnt += 1
         x /= 10
     }
@@ -98,15 +96,13 @@ fun digitNumber(n: Int): Int
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int
-{
+fun fib(n: Int): Int {
     var a: Int = 1;
     var b: Int = 1;
     var c: Int
     var i: Int = 3
 
-    while (i <= n)
-    {
+    while (i <= n) {
         c = a + b;
         a = b;
         b = c;
@@ -120,13 +116,11 @@ fun fib(n: Int): Int
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int
-{
+fun minDivisor(n: Int): Int {
     var x: Int = 1
 
     for (i in 2..n)
-        if (n % i == 0)
-        {
+        if (n % i == 0) {
             x = i
             break
         }
@@ -139,13 +133,11 @@ fun minDivisor(n: Int): Int
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int
-{
+fun maxDivisor(n: Int): Int {
     var x: Int = n / 2 // 9
 
     for (i in x downTo 1)
-        if (n % i == 0)
-        {
+        if (n % i == 0) {
             x = i
             break
         }
@@ -169,13 +161,11 @@ fun maxDivisor(n: Int): Int
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int
-{
+fun collatzSteps(x: Int): Int {
     var cnt: Int = 0
     var k: Int = x
 
-    while (k != 1)
-    {
+    while (k != 1) {
         if (k % 2 == 0)
             k /= 2
         else
@@ -193,15 +183,13 @@ fun collatzSteps(x: Int): Int
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int
-{
+fun lcm(m: Int, n: Int): Int {
 
     var a: Int = m
     var b: Int = n
     var c: Int
 
-    while (b > 0)
-    {
+    while (b > 0) {
         c = a % b
         a = b
         b = c
@@ -217,13 +205,11 @@ fun lcm(m: Int, n: Int): Int
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean
-{
+fun isCoPrime(m: Int, n: Int): Boolean {
     var x: Int = m
     var y: Int = n
 
-    while (x > 0 && y > 0)
-    {
+    while (x > 0 && y > 0) {
         if (x > y)
             x %= y
         else
@@ -240,13 +226,11 @@ fun isCoPrime(m: Int, n: Int): Boolean
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int
-{
+fun revert(n: Int): Int {
     var result: String = ""
     var x: Int = n
 
-    while (x > 0)
-    {
+    while (x > 0) {
         result += (x % 10).toString()
         x /= 10
     }
@@ -265,13 +249,11 @@ fun revert(n: Int): Int
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean
-{
+fun isPalindrome(n: Int): Boolean {
     var result: String = ""
     var x: Int = n
 
-    while (x > 0)
-    {
+    while (x > 0) {
         result += (x % 10).toString()
         x /= 10
     }
@@ -287,16 +269,14 @@ fun isPalindrome(n: Int): Boolean
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean
-{
+fun hasDifferentDigits(n: Int): Boolean {
     if (n in 0..9)
         return false
 
     var k: Int = n % 10
     var x: Int = n / 10
 
-    while (x > 0)
-    {
+    while (x > 0) {
         if (x % 10 != k)
             return true
         x /= 10
@@ -314,7 +294,41 @@ fun hasDifferentDigits(n: Int): Boolean
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+
+fun fac(n: Int): Double
+{
+    var result: Int = 1
+    for (i in 2..n)
+        result *= i
+
+    return result.toDouble()
+}
+
+fun sin(x: Double, eps: Double): Double
+{
+    fun mysin_x(x: Double, eps: Double): Double
+    {
+        var s: Double = 0.0
+        var an: Double = 1.0
+        var n: Int = 0
+
+        while (abs(an) > eps)
+        {
+            s += an
+            an *= -x * x / (2 * n + 2.0) / (2.0 * n + 3.0)
+            n += 1
+        }
+
+        return s;
+    }
+
+    var new_x: Double = x
+    var e: Double = eps
+    var y1: Double = mysin_x(x, eps)
+    var y2: Double = sin(x) / x
+
+    return y2
+}
 
 /**
  * Средняя (4 балла)
@@ -337,13 +351,11 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 
-fun col(n: Int): Int
-{
+fun col(n: Int): Int {
     if (n / 10 == 0) return 1
     var s: Int = n
     var k: Int = 0
-    while (s > 0)
-    {
+    while (s > 0) {
         k += 1
         s /= 10
     }
@@ -351,25 +363,22 @@ fun col(n: Int): Int
     return k
 }
 
-fun squareSequenceDigit(n: Int): Int
-{
+fun squareSequenceDigit(n: Int): Int {
     var s: Int = 0
     var i: Double = 1.0
     var box: Int = 0
     var ch: Double = 0.0
-    while (s < n)
-    {
+    while (s < n) {
         s += col(i.pow(2.0).toInt())
         box = col(i.pow(2.0).toInt())
         ch = i.pow(2.0)
         i += 1
     }
     s -= box
-    
+
     var gl: Int = ch.toInt()
     var mas: Array<Int> = emptyArray<Int>()
-    while (gl > 0)
-    {
+    while (gl > 0) {
         mas += gl % 10
         gl /= 10
     }
@@ -387,16 +396,14 @@ fun squareSequenceDigit(n: Int): Int
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int
-{
+fun fibSequenceDigit(n: Int): Int {
     var s: Int = 0
     var pr: Int = 0
     var box: Int
     var sled: Int = 1
     var dbl: Int = 0
     var cont: Int = 0
-    while (s < n)
-    {
+    while (s < n) {
         s += col(sled)
         dbl = col(sled)
         cont = sled
@@ -407,8 +414,7 @@ fun fibSequenceDigit(n: Int): Int
     s -= dbl
 
     var mas: Array<Int> = emptyArray<Int>()
-    while (cont > 0)
-    {
+    while (cont > 0) {
         mas += cont % 10
         cont /= 10
     }
