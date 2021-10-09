@@ -400,4 +400,94 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+
+fun getRussian(value: Int) : String
+{
+    var result: String
+    if (value % 100 < 10 || value % 100 > 19) {
+        result = when (value % 10) {
+            9 -> "девять"
+            8 -> "восемь"
+            7 -> "семь"
+            6 -> "шесть"
+            5 -> "пять"
+            4 -> "четыре"
+            3 -> "три"
+            2 -> "два"
+            1 -> "один"
+            else -> if (value == 0) "ноль"
+            else ""
+        }
+        if (value % 100 > 19) {
+            var secondRank: String = when ((value % 100) / 10) {
+                9 -> "девяносто"
+                8 -> "восемьдесят"
+                7 -> "семьдесят"
+                6 -> "шестьдесят"
+                5 -> "пятьдесят"
+                4 -> "сорок"
+                3 -> "тридцать"
+                else -> "двадцать"
+            }
+            secondRank += " $result"
+            result = secondRank
+        }
+    }
+    else {
+        result = when(value % 10) {
+            9 -> "девятнадцать"
+            8 -> "восемнадцать"
+            7 -> "семнадцать"
+            6 -> "шестнадцать"
+            5 -> "пятнадцать"
+            4 -> "четырнадцать"
+            3 -> "тринадцать"
+            2 -> "двенадцать"
+            1 -> "одиннадцать"
+            else -> "десять"
+        }
+    }
+
+    if (value > 99) {
+        var thirdRank: String = when (value / 100) {
+            9 -> "девятьсот"
+            8 -> "восемьсот"
+            7 -> "семьсот"
+            6 -> "шестьсот"
+            5 -> "пятьсот"
+            4 -> "четыреста"
+            3 -> "триста"
+            2 -> "двести"
+            else -> "сто"
+        }
+        thirdRank += " $result"
+        result = thirdRank
+    }
+
+    return result;
+}
+
+fun russian(value: Int) : String
+{
+    var result: String =
+        if (value % 1000 != 0 || value == 0)
+            getRussian(value % 1000)
+        else ""
+    if(value > 999) {
+        var thirdRank = getRussian(value / 1000)
+        thirdRank = when((value / 1000) % 10) {
+            1 -> {
+                thirdRank.dropLast(4) + "одна тысяча "
+            }
+            2 -> {
+                thirdRank.dropLast(3) + "две тысячи "
+            }
+            3 -> "$thirdRank тысячи "
+            4 -> "$thirdRank тысячи "
+            else -> "$thirdRank тысяч "
+        }
+        thirdRank += result
+        result = thirdRank
+    }
+    return result
+}

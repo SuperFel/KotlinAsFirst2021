@@ -295,39 +295,23 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 
-fun fac(n: Int): Double
-{
-    var result: Int = 1
-    for (i in 2..n)
-        result *= i
-
-    return result.toDouble()
-}
-
 fun sin(x: Double, eps: Double): Double
 {
-    fun mysin_x(x: Double, eps: Double): Double
+    var x = x.rem(2 * kotlin.math.PI)
+    var temp = x
+    var result = 0.0
+    var i = 3
+    var sign = -1
+    while (abs(temp) >= eps)
     {
-        var s: Double = 0.0
-        var an: Double = 1.0
-        var n: Int = 0
+        result += temp
+        temp = sign * x.pow(i) / factorial(i)
 
-        while (abs(an) > eps)
-        {
-            s += an
-            an *= -x * x / (2 * n + 2.0) / (2.0 * n + 3.0)
-            n += 1
-        }
-
-        return s;
+        i += 2
+        sign *= -1
     }
 
-    var new_x: Double = x
-    var e: Double = eps
-    var y1: Double = mysin_x(x, eps)
-    var y2: Double = sin(x) / x
-
-    return y2
+    return result
 }
 
 /**
@@ -339,7 +323,24 @@ fun sin(x: Double, eps: Double): Double
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double
+{
+    var x = x.rem(2 * kotlin.math.PI)
+    var temp = x
+    var result = 1.0
+    var i = 2
+    var sign = -1
+    while (abs(temp) >= eps)
+    {
+        temp = sign * x.pow(i) / factorial(i)
+        result += temp
+
+        sign *= -1
+        i += 2
+    }
+
+    return result
+}
 
 /**
  * Сложная (4 балла)
