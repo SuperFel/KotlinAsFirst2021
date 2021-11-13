@@ -133,12 +133,7 @@ fun abs(v: List<Double>): Double {
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-    if (list.size == 0)
-        return 0.0
-    else
-        return list.sum() / list.size
-}
+fun mean(list: List<Double>): Double = if (list.size == 0) 0.0 else list.sum() / list.size
 
 /**
  * Средняя (3 балла)
@@ -148,17 +143,16 @@ fun mean(list: List<Double>): Double {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> {
+fun center(list: MutableList<Double>): MutableList<Double>
+{
     if (list.size == 0)
         return list
-    else {
-        val average: Double = list.sum() / list.size
 
-        for (i in 0 until list.size)
-            list[i] = list[i] - average
+    val average: Double = list.sum() / list.size
+    for (i in 0 until list.size)
+        list[i] = list[i] - average
 
-        return list
-    }
+    return list
 }
 
 /**
@@ -185,16 +179,13 @@ fun times(a: List<Int>, b: List<Int>): Int {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    if (p.size == 0)
-        return 0
-    else {
-        var result: Int = 0
-        for (i in 0 until p.size)
-            result += p[i] * (x.toDouble().pow(i.toDouble())).toInt()
+fun polynom(p: List<Int>, x: Int): Int
+{
+    var result: Int = 0
+    for (i in 0 until p.size)
+        result += p[i] * (x.toDouble().pow(i.toDouble())).toInt()
 
-        return result
-    }
+    return result
 }
 
 /**
@@ -228,8 +219,10 @@ fun factorize(n: Int): List<Int> {
     var result: MutableList<Int> = mutableListOf()
     var x: Int = n
     var i: Int = 2
-    while (x > 1) {
-        if (x % i == 0) {
+    while (x > 1)
+    {
+        if (x % i == 0)
+        {
             result.add(i)
             x /= i
             i = 2
@@ -247,21 +240,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String {
-    var result: MutableList<Int> = mutableListOf()
-    var x: Int = n
-    var i: Int = 2
-    while (x > 1) {
-        if (x % i == 0) {
-            result.add(i)
-            x /= i
-            i = 2
-        } else
-            i += 1
-    }
-
-    return result.joinToString(separator = "*")
-}
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя (3 балла)
