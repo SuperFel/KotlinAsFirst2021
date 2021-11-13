@@ -14,7 +14,8 @@ import kotlin.math.*
  *
  * Вычисление факториала
  */
-fun factorial(n: Int): Double {
+fun factorial(n: Int): Double
+{
     var result = 1.0
     for (i in 1..n) {
         result = result * i // Please do not fix in master
@@ -27,7 +28,8 @@ fun factorial(n: Int): Double {
  *
  * Проверка числа на простоту -- результат true, если число простое
  */
-fun isPrime(n: Int): Boolean {
+fun isPrime(n: Int): Boolean
+{
     if (n < 2) return false
     if (n == 2) return true
     if (n % 2 == 0) return false
@@ -42,7 +44,8 @@ fun isPrime(n: Int): Boolean {
  *
  * Проверка числа на совершенность -- результат true, если число совершенное
  */
-fun isPerfect(n: Int): Boolean {
+fun isPerfect(n: Int): Boolean
+{
     var sum = 1
     for (m in 2..n / 2) {
         if (n % m > 0) continue
@@ -72,17 +75,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int {
+fun digitNumber(n: Int): Int
+{
     if (n == 0)
         return 1
 
     var cnt: Int = 0
-    var x: Int = n
+    var x: Int = abs(n)
 
-    if (x < 0)
-        x *= -1
-
-    while (x > 0) {
+    while (x > 0)
+    {
         cnt += 1
         x /= 10
     }
@@ -96,19 +98,22 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int {
-    var a: Int = 1;
-    var b: Int = 1;
+fun fib(n: Int): Int
+{
+    var a: Int = 1
+    var b: Int = 1
     var c: Int
     var i: Int = 3
 
-    while (i <= n) {
-        c = a + b;
-        a = b;
-        b = c;
+    while (i <= n)
+    {
+        c = a + b
+        a = b
+        b = c
         i += 1
     }
-    return b;
+
+    return b
 }
 
 /**
@@ -116,14 +121,18 @@ fun fib(n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int {
+fun minDivisor(n: Int): Int
+{
     var x: Int = 1
 
     for (i in 2..n)
-        if (n % i == 0) {
+    {
+        if (n % i == 0)
+        {
             x = i
-            break
+            return i
         }
+    }
 
     return x
 }
@@ -226,18 +235,20 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int {
-    var result: String = ""
-    var x: Int = n
+fun revert(n: Int): Int
+{
+    var num = n
+    var result: Int = 0
+    var digit: Int
 
-    while (x > 0) {
-        result += (x % 10).toString()
-        x /= 10
+    while (num != 0)
+    {
+        digit = num % 10
+        result = result * 10 + digit
+        num /= 10
     }
-    if (n == 0)
-        return 0
 
-    return result.toInt()
+    return result
 }
 
 /**
@@ -249,16 +260,20 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    var result: String = ""
-    var x: Int = n
+fun isPalindrome(n: Int): Boolean
+{
+    var num = n
+    var digit: Int
+    var result: Int = 0
 
-    while (x > 0) {
-        result += (x % 10).toString()
-        x /= 10
+    while (num != 0)
+    {
+        digit = num % 10
+        result = result * 10 + digit
+        num /= 10
     }
 
-    return n.toLong() == result.toLong()
+    return result == n
 }
 
 /**
