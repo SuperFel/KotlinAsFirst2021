@@ -27,7 +27,8 @@ fun isNumberHappy(number: Int): Boolean = number % 10 + number % 100 / 10 == num
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = x1 == x2 || y1 == y2 || Math.abs(x1 - x2) == Math.abs(y1 - y2)
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
+    x1 == x2 || y1 == y2 || Math.abs(x1 - x2) == Math.abs(y1 - y2)
 
 
 /**
@@ -36,48 +37,29 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = x1 == x2 || y1
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int
-{
-    fun yearType(year: Int): Int
-    {
+fun daysInMonth(month: Int, year: Int): Int {
+    fun yearType(year: Int): Int {
         if (year % 4 == 0 && year % 4000 != 0 && year % 100 != 0 || year % 400 == 0)
             return 1
         else
             return 0
     }
 
-    if (yearType(year) == 1) // год високосный
-        return when (month)
-        {
-            1 -> 31
-            2 -> 29
-            3 -> 31
-            4 -> 30
-            5 -> 31
-            6 -> 30
-            7 -> 31
-            8 -> 31
-            9 -> 30
-            10 -> 31
-            11 -> 30
-            else -> 31
-        }
-    else
-        return when (month)
-        {
-            1 -> 31
-            2 -> 28
-            3 -> 31
-            4 -> 30
-            5 -> 31
-            6 -> 30
-            7 -> 31
-            8 -> 31
-            9 -> 30
-            10 -> 31
-            11 -> 30
-            else -> 31
-        }
+    return when {
+        month == 1 -> 31
+        month == 2 && yearType(year) == 1 -> 29
+        month == 2 -> 28
+        month == 3 -> 31
+        month == 4 -> 30
+        month == 5 -> 31
+        month == 6 -> 30
+        month == 7 -> 31
+        month == 8 -> 31
+        month == 9 -> 30
+        month == 10 -> 31
+        month == 11 -> 30
+        else -> 31
+    }
 }
 
 /**
@@ -90,8 +72,7 @@ fun daysInMonth(month: Int, year: Int): Int
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean
-{
+): Boolean {
     var dl1: Double = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
     var dl2: Double = r2 - r1
 
@@ -115,10 +96,7 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean
         flag = true
     else if ((a <= r && c <= s) || (a <= s && c <= r))
         flag = true
-    else if ((b <= r && c <= s) || (b <= s && c <= r))
-        flag = true
-    else
-        flag = false
+    else flag = (b <= r && c <= s) || (b <= s && c <= r)
 
     return flag
 }

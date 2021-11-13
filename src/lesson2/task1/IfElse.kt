@@ -5,6 +5,7 @@ package lesson2.task1
 import lesson1.task1.discriminant
 import kotlin.math.max
 import kotlin.math.sqrt
+import kotlin.math.abs
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -68,14 +69,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String
-{
+fun ageDescription(age: Int): String {
     var k: String = age.toString()
     var lastChar = k[k.length - 1]
-    return when
-    {
+    return when {
         lastChar == '1' && age != 11 && age != 111 -> "$age год"
-        (lastChar == '2' || lastChar == '3' || lastChar == '4') && age != 12 && age != 13 && age != 14 && age != 112 && age != 113 && age != 114 -> "$age года"
+        (lastChar in "234") && age != 12 && age != 13 && age != 14 && age != 112 && age != 113 && age != 114 -> "$age года"
         else -> "$age лет"
     }
 }
@@ -87,8 +86,7 @@ fun ageDescription(age: Int): String
  * и t3 часов — со скоростью v3 км/час.
  * Определить, за какое время он одолел первую половину пути?
  */
-fun timeForHalfWay(t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double): Double
-{
+fun timeForHalfWay(t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double): Double {
     val s1: Double = v1 * t1
     val s2: Double = v2 * t2
     val s3: Double = v3 * t3
@@ -118,15 +116,11 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int
-{
-    return when
-    {
-        (kingX == rookX1 || kingY == rookY1) && kingX != rookX2 && kingY != rookY2 -> 1
-        (kingX == rookX2 || kingY == rookY2) && kingX != rookX1 && kingY != rookY1 -> 2
-        (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
-        else -> 0
-    }
+): Int = when {
+    (kingX == rookX1 || kingY == rookY1) && kingX != rookX2 && kingY != rookY2 -> 1
+    (kingX == rookX2 || kingY == rookY2) && kingX != rookX1 && kingY != rookY1 -> 2
+    (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
+    else -> 0
 }
 
 /**
@@ -143,15 +137,12 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int
+): Int = when
 {
-    return when
-    {
-        kingX != rookX && kingY != rookY && Math.abs(kingX - bishopX) != Math.abs(kingY - bishopY) -> 0
-        (kingX == rookX || kingY == rookY) && Math.abs(kingX - bishopX) != Math.abs(kingY - bishopY) -> 1
-        kingX != rookX && kingY != rookY && Math.abs(kingX - bishopX) == Math.abs(kingY - bishopY) -> 2
-        else -> 3
-    }
+    kingX != rookX && kingY != rookY && abs(kingX - bishopX) != abs(kingY - bishopY) -> 0
+    (kingX == rookX || kingY == rookY) && abs(kingX - bishopX) != abs(kingY - bishopY) -> 1
+    kingX != rookX && kingY != rookY && abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
+    else -> 3
 }
 
 /**
@@ -162,10 +153,8 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int
-{
-    return when
-    {
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    return when {
         a > b + c || b > a + c || c > a + b -> -1
         a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a -> 1
         a * a < b * b + c * c && b * b < a * a + c * c && c * c < b * b + a * a -> 0
@@ -181,10 +170,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
-{
-    return when
-    {
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+    return when {
         a < b && b < c && c < d -> -1
         a < b && b == c && c < d -> 0
         a < c && c < b && b < d -> b - c
