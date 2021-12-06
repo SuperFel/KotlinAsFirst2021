@@ -3,7 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
-import kotlin.math.*
+import kotlin.math.abs
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
