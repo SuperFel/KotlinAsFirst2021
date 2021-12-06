@@ -123,18 +123,10 @@ fun fib(n: Int): Int
  */
 fun minDivisor(n: Int): Int
 {
-    var x: Int = 1
+    for (i in 2..n / 2)
+        if (n % i == 0) return i
 
-    for (i in 2..n)
-    {
-        if (n % i == 0)
-        {
-            x = i
-            return i
-        }
-    }
-
-    return x
+    return n
 }
 
 /**
@@ -142,7 +134,8 @@ fun minDivisor(n: Int): Int
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
+fun maxDivisor(n: Int): Int
+{
     var x: Int = n / 2 // 9
 
     for (i in x downTo 1)
@@ -237,7 +230,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  */
 fun revert(n: Int): Int
 {
-    var num = n
+    var num: Int = n
     var result: Int = 0
     var digit: Int
 
@@ -262,7 +255,7 @@ fun revert(n: Int): Int
  */
 fun isPalindrome(n: Int): Boolean
 {
-    var num = n
+    var num: Int = n
     var digit: Int
     var result: Int = 0
 
@@ -288,7 +281,7 @@ fun hasDifferentDigits(n: Int): Boolean {
     if (n in 0..9)
         return false
 
-    var k: Int = n % 10
+    val k: Int = n % 10
     var x: Int = n / 10
 
     while (x > 0) {
@@ -312,11 +305,11 @@ fun hasDifferentDigits(n: Int): Boolean {
 
 fun sin(x: Double, eps: Double): Double
 {
-    var x = x.rem(2 * kotlin.math.PI)
-    var temp = x
-    var result = 0.0
-    var i = 3
-    var sign = -1
+    var x: Double = x.rem(2 * kotlin.math.PI)
+    var temp: Double = x
+    var result: Double = 0.0
+    var i: Int = 3
+    var sign: Int = -1
     while (abs(temp) >= eps)
     {
         result += temp
@@ -340,11 +333,11 @@ fun sin(x: Double, eps: Double): Double
  */
 fun cos(x: Double, eps: Double): Double
 {
-    var x = x.rem(2 * kotlin.math.PI)
-    var temp = x
-    var result = 1.0
-    var i = 2
-    var sign = -1
+    var x: Double = x.rem(2 * kotlin.math.PI)
+    var temp: Double = x
+    var result: Double = 1.0
+    var i: Int = 2
+    var sign: Int = -1
     while (abs(temp) >= eps)
     {
         temp = sign * x.pow(i) / factorial(i)
