@@ -3,9 +3,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
-import kotlin.math.max
-import kotlin.math.sqrt
-import kotlin.math.abs
+import kotlin.math.*
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
 // Максимальное количество баллов = 6
@@ -69,12 +67,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    var k: String = age.toString()
-    var lastChar = k[k.length - 1]
+fun ageDescription(age: Int): String
+{
+    val k: String = age.toString()
+    val lastChar: Char = k[k.length - 1]
     return when {
         lastChar == '1' && age != 11 && age != 111 -> "$age год"
-        (lastChar in "234") && age != 12 && age != 13 && age != 14 && age != 112 && age != 113 && age != 114 -> "$age года"
+        lastChar in "234" && age !in 12..14 && age !in 112..114 -> "$age года"
         else -> "$age лет"
     }
 }
@@ -86,21 +85,16 @@ fun ageDescription(age: Int): String {
  * и t3 часов — со скоростью v3 км/час.
  * Определить, за какое время он одолел первую половину пути?
  */
-fun timeForHalfWay(t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double): Double {
+fun timeForHalfWay(t1: Double, v1: Double, t2: Double, v2: Double, t3: Double, v3: Double): Double
+{
     val s1: Double = v1 * t1
     val s2: Double = v2 * t2
     val s3: Double = v3 * t3
     val S: Double = (s1 + s2 + s3) / 2
-    var t: Double
 
-    if (S <= s1)
-        t = S / v1
-    else if (S > s1 && S <= s1 + s2)
-        t = t1 + (S - s1) / v2
-    else
-        t = t1 + t2 + (S - s1 - s2) / v3
-
-    return t
+    return if (S <= s1) S / v1
+    else if (S > s1 && S <= s1 + s2) t1 + (S - s1) / v2
+    else t1 + t2 + (S - s1 - s2) / v3
 }
 
 /**
@@ -116,7 +110,8 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = when {
+): Int = when
+{
     (kingX == rookX1 || kingY == rookY1) && kingX != rookX2 && kingY != rookY2 -> 1
     (kingX == rookX2 || kingY == rookY2) && kingX != rookX1 && kingY != rookY1 -> 2
     (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
@@ -153,13 +148,12 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return when {
-        a > b + c || b > a + c || c > a + b -> -1
-        a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a -> 1
-        a * a < b * b + c * c && b * b < a * a + c * c && c * c < b * b + a * a -> 0
-        else -> 2
-    }
+fun triangleKind(a: Double, b: Double, c: Double): Int = when
+{
+    a > b + c || b > a + c || c > a + b -> -1
+    a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a -> 1
+    a * a < b * b + c * c && b * b < a * a + c * c && c * c < b * b + a * a -> 0
+    else -> 2
 }
 
 /**
@@ -170,25 +164,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    return when {
-        a < b && b < c && c < d -> -1
-        a < b && b == c && c < d -> 0
-        a < c && c < b && b < d -> b - c
-        a == c && b == d -> b - a
-        c < a && a < d && d < b -> d - a
-        c < a && a == d && d < b -> 0
-        c < d && d < a && a < b -> -1
-        a < c && c <= d && d < b -> d - c
-        c < a && a <= b && b < d -> b - a
-        a == c && c < b && b < d -> b - a
-        a == c && a < d && d < b -> d - c
-        a < c && c < b && b == d -> d - c
-        c < a && a < b && b == d -> b - a
-        a < c && b == c && c == d -> 0
-        c < a && a == b && b == d -> 0
-        a == c && c == b && b < d -> 0
-        a == c && c == d && d < b -> 0
-        else -> -1
-    }
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int
+{
+    val x: Int = max(a, c)
+    val y: Int = min(b, d)
+
+    return if (y - x < 0) -1 else abs(x - y)
 }
