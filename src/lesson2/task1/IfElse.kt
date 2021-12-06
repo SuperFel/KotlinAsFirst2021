@@ -22,6 +22,7 @@ fun quadraticRootNumber(a: Double, b: Double, c: Double): Int {
         discriminant == 0.0 -> 1
         else -> 0
     }
+}
 
 /**
  * Пример
