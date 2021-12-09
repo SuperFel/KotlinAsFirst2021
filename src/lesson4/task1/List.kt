@@ -388,11 +388,12 @@ fun roman(n: Int): String
 
 fun getRussian(value: Int): String
 {
-    var result = ""
+    var result: StringBuilder = StringBuilder()
+    var temp: String = ""
 
     if (value > 99)
     {
-        result = when(value / 100)
+        temp = when (value / 100)
         {
             1 -> "сто"
             2 -> "двести"
@@ -404,14 +405,15 @@ fun getRussian(value: Int): String
             8 -> "восемьсот"
             else -> "девятьсот"
         }
+        result.append(temp)
     }
-    if(value % 100 != 0)
+    if (value % 100 != 0)
     {
-        if(value > 99)
-            result += ' '
-        if(value % 100 in 10..19) {
-
-            result += when(value % 100)
+        if (value > 99)
+            result.append(' ')
+        if (value % 100 in 10..19)
+        {
+            temp = when (value % 100)
             {
                 10 -> "десять"
                 11 -> "одиннадцать"
@@ -424,12 +426,13 @@ fun getRussian(value: Int): String
                 18 -> "восемнадцать"
                 else -> "девятнадцать"
             }
+            result.append(temp)
         }
         else
         {
-            if(value % 100 >= 20)
+            if (value % 100 >= 20)
             {
-                result += when((value % 100) / 10)
+                temp = when((value % 100) / 10)
                 {
                     2 -> "двадцать"
                     3 -> "тридцать"
@@ -440,12 +443,13 @@ fun getRussian(value: Int): String
                     8 -> "восемьдесят"
                     else -> "девяносто"
                 }
+                result.append(temp)
             }
-            if(value % 10 != 0)
+            if (value % 10 != 0)
             {
                 if (value % 100 >= 20)
-                    result += ' '
-                result += when(value % 10)
+                    result.append(' ')
+                temp = when (value % 10)
                 {
                     1 -> "один"
                     2 -> "два"
@@ -457,10 +461,12 @@ fun getRussian(value: Int): String
                     8 -> "восемь"
                     else -> "девять"
                 }
+                result.append(temp)
             }
         }
     }
-    return result
+
+    return result.toString()
 }
 
 fun russian(value: Int): String
