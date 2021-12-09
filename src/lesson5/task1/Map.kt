@@ -98,13 +98,15 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>>
 {
-    var lst: MutableList<String> = mutableListOf()
-    var result: MutableMap<Int, List<String>> = mutableMapOf()
+    val result: MutableMap<Int, List<String>> = mutableMapOf()
 
-    for (i in grades.keys)
+    for ((i, j) in grades)
     {
-        if (grades[i] !in result)
-            result.put(5, listOf(i))
+        if (j !in result.keys)
+            result[j] = listOf()
+
+        // result[j] += listOf(i) - не получается
+        // Так тоже не получается: result[j].add(i). Помогите пожалуйста
     }
 
     return result
