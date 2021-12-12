@@ -201,7 +201,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
     {
         if (i !in result.keys)
             result[i] = j
-        else if (j !in mapA.values)
+        else if (j !in mapA.values && j.isNotEmpty())
             result[i] += ", $j"
     }
 
