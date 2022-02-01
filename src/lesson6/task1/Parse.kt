@@ -108,7 +108,7 @@ fun dateStrToDigit(str: String): String
 
     if (month.isEmpty())
         return month
-    return String.format("%02d.%02d.%02d", day, month.toInt(), year)
+    return String.format("%02d.%02d.%d", day, month.toInt(), year)
 }
 
 /**
@@ -150,31 +150,7 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 
-fun isDigit(num: String): Boolean
-{
-    var cnt: Int = 0
-    for (i in num)
-        if (i in "0123456789")
-            cnt += 1
-
-    return cnt == num.length
-}
-
-fun bestLongJump(jumps: String): Int
-{
-    val jumps: List<String> = jumps.split(" ")
-    val listNumbers: MutableList<Int> = mutableListOf()
-
-    for (i in jumps)
-    {
-        if (!isDigit(i) && i !in "%-")
-            return -1
-        if (isDigit(i))
-            listNumbers.add(i.toInt())
-    }
-
-    return if (listNumbers.isEmpty()) -1 else listNumbers.maxOrNull()!!
-}
+fun bestLongJump(jumps: String): Int = TODO()
 
 /**
  * Сложная (6 баллов)
