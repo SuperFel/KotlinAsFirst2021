@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import kotlin.math.max
+
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
 // Рекомендуемое количество баллов = 11
@@ -74,7 +76,40 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String
+{
+    val dateList: List<String> = str.split(" ")
+    if (dateList.size != 3)
+        return ""
+
+    val year: Int = dateList[2].toInt()
+    var month: String = dateList[1]
+    val day: Int = dateList[0].toInt()
+    val days31: Boolean = day in 1..31
+    val days30: Boolean = day in 1..30
+
+    month = when
+    {
+        month == "января" && days31 -> "01"
+        month == "февраля" && day == 29 && !(year % 4 == 0 && year % 100 != 0 || year % 400 == 0) -> ""
+        month == "февраля" && day in 1..29 -> "02"
+        month == "марта" && days31 -> "03"
+        month == "апреля" && days30 -> "04"
+        month == "мая" && days31 -> "05"
+        month == "июня" && days30 -> "06"
+        month == "июля" && days31 -> "07"
+        month == "августа" && days31 -> "08"
+        month == "сентября" && days30 -> "09"
+        month == "октября" && days31 -> "10"
+        month == "ноября" && days30 -> "11"
+        month == "декабря" && days31 -> "12"
+        else -> ""
+    }
+
+    if (month.isEmpty())
+        return month
+    return String.format("%02d.%02d.%02d", day, month.toInt(), year)
+}
 
 /**
  * Средняя (4 балла)
@@ -114,7 +149,32 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+
+fun isDigit(num: String): Boolean
+{
+    var cnt: Int = 0
+    for (i in num)
+        if (i in "0123456789")
+            cnt += 1
+
+    return cnt == num.length
+}
+
+fun bestLongJump(jumps: String): Int
+{
+    val jumps: List<String> = jumps.split(" ")
+    val listNumbers: MutableList<Int> = mutableListOf()
+
+    for (i in jumps)
+    {
+        if (!isDigit(i) && i !in "%-")
+            return -1
+        if (isDigit(i))
+            listNumbers.add(i.toInt())
+    }
+
+    return if (listNumbers.isEmpty()) -1 else listNumbers.maxOrNull()!!
+}
 
 /**
  * Сложная (6 баллов)
